@@ -1,13 +1,14 @@
 .container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 40px;
     padding: 78px 128px 100px 128px;
 }
 
 .heroContent {
     max-width: 595px;
+    margin-right: 125px;
 }
 
 .heroTitle {
