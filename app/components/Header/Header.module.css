@@ -64,3 +64,18 @@
 .favorites {
   visibility: hidden;
 }
+.navLink {
+  position: relative;
+}
+
+.active::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #54be96;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
