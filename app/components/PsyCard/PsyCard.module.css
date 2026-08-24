@@ -1,6 +1,127 @@
-.container{
-    max-width: 1184px;
-    background: #fbfbfb;
-    border-radius: 24px;
-    margin-top: 32px;
+.container {
+  background: #fbfbfb;
+  border-radius: 24px;
+  margin-top: 32px;
+  padding: 24px;
+  max-width: 1184px;
+  display: flex;
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+.container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.imageWrapper {
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 2px solid rgba(84, 190, 150, 0.2);
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.image {
+  border-radius: 15px;
+}
+.top {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: start;
+}
+.header {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #8a8a89;
+}
+
+.name {
+  grid-column: 1;
+  grid-row: 2;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  color: #191a15;
+  margin-top: 8px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  gap: 8px;
+  line-height: 1.5;
+}
+.price {
+  border-left: 1px solid #ddd;
+  padding-left: 16px;
+  margin-right: 28px;
+
+  line-height: 1.5;
+}
+.spanPrice {
+  color: #38cd3e;
+}
+
+.rating,
+.price {
+  grid-row: 1;
+}
+.ratingIcon {
+  color: #ffc531;
+  width: 15px;
+  height: 14px;
+  transform: translateY(-1px);
+}
+.heartIcon {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
+.heartIcon:hover {
+  transform: translateY(-2px);
+}
+.heartIcon:active {
+  transform: scale(0.9);
+}
+.infoTags {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 24px;
+  column-gap: 4px;
+  row-gap: 8px;
+}
+.tagItem {
+  border-radius: 24px;
+  padding: 8px 16px;
+  background: #f3f3f3;
+}
+.spanTag {
+  color: #8a8a89;
+}
+.descr {
+  line-height: 1.25;
+  color: rgba(25, 26, 21, 0.5);
+  margin-top: 24px;
+}
+.readMore {
+  background-color: #fbfbfb;
+  border: none;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+.readMore:hover {
+  color: #54be96;
 }
