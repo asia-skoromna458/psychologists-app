@@ -3,10 +3,13 @@ import css from "./PsyCard.module.css";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import { useState } from "react";
+import Reviews from "../Reviews/Reviews";
 interface PsychologistCardProps {
   psychologist: Psychologist;
 }
 export default function PsyCard({ psychologist }: PsychologistCardProps) {
+  const [showMore, setShowMore] = useState(false);
   return (
     <div className={css.container}>
       <div className={css.imageWrapper}>
@@ -54,7 +57,12 @@ export default function PsyCard({ psychologist }: PsychologistCardProps) {
           </li>
         </ul>
         <p className={css.descr}>{psychologist.about}</p>
-        <button className={css.readMore}>Read more</button>
+        {!showMore && (
+          <button className={css.readMore} onClick={() => setShowMore(true)}>
+            Read more
+          </button>
+        )}
+        {showMore && <Reviews reviews={psychologist.reviews} />}
       </div>
     </div>
   );
