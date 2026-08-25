@@ -1,0 +1,56 @@
+.filter {
+  font-size: 14px;
+  line-height: 1.29;
+  color: #8a8a89;
+  position: relative;
+}
+.dropdownBtn {
+  margin-top: 8px;
+  width: 226px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 14px;
+  padding: 16px 18px;
+  border: none;
+
+  background: #54be96;
+  color: #fbfbfb;
+  font-size: 16px;
+  line-height: 1.25;
+}
+.filterList {
+  list-style: none;
+  margin-top: 8px;
+  border-radius: 14px;
+  max-width: 226px;
+  max-height: 216px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 18px;
+  position: absolute;
+  width: 226px;
+}
+.filterItem {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: rgba(25, 26, 21, 0.3);
+  cursor: pointer;
+}
+.filterItem.active {
+  color: #191a15;
+}
+.icon {
+  transition: transform 250ms ease;
+}
+.icon.active {
+  transform: rotate(180deg);
+}

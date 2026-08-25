@@ -1,18 +1,22 @@
-.container{
-    padding: 64px 128px 100px 128px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-        justify-content: center;
+.container {
+  padding: 64px 128px 100px 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container > :first-child {
+  width: 100%;
+  max-width: 1184px;
 }
 
-.loadMoreBtn{
-    border-radius: 30px;
-        padding: 14px 48px;
-        width: 176px;
-        height: 48px;
-        background: #54be96;
-        border: none;
-        color: #fbfbfb;
-        margin-top: 64px;
+.loadMoreBtn {
+  border-radius: 30px;
+  padding: 14px 48px;
+  width: 176px;
+  height: 48px;
+  background: #54be96;
+  border: none;
+  color: #fbfbfb;
+  margin-top: 64px;
 }
