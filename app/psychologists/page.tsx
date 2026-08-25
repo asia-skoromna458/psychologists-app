@@ -5,13 +5,16 @@ import { getPsychologist } from "@/lib/api/api";
 import PsyCard from "../components/PsyCard/PsyCard";
 import css from "./page.module.css";
 import Filter from "../components/Filter/Filter";
+import FilteredPsychologist from "@/lib/filters/filters";
 
 export default function PsychologistsPage() {
   const [psychologists, setPsychologists] = useState<Psychologist[]>([]);
   const [lastKey, setLastKey] = useState<string | null>(null);
+  const [filter, setFilter] = useState<string>("A to Z");
+
   useEffect(() => {
     async function fetchPsychologists() {
-      const res = await getPsychologist(null); //потім змінити на lastKey
+      const res = await getPsychologist(null);
       setPsychologists(res.psychologist);
       setLastKey(res.lastKey);
     }
@@ -22,12 +25,13 @@ export default function PsychologistsPage() {
     setPsychologists((prev) => [...prev, ...res.psychologist]);
     setLastKey(res.lastKey);
   }
-
+  console.log("filter:", filter);
+  const filteredPsychologist = FilteredPsychologist(psychologists, filter);
   return (
     <main>
       <div className={css.container}>
-        <Filter />
-        {psychologists.map((psychologist, index) => (
+        <Filter filter={filter} setFilter={setFilter} />
+        {filteredPsychologist.map((psychologist, index) => (
           <PsyCard key={index} psychologist={psychologist} />
         ))}
         <button onClick={LoadMore} className={css.loadMoreBtn}>
