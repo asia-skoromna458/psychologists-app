@@ -8,6 +8,19 @@ interface FilterProps {
 }
 export default function Filter({ filter, setFilter }: FilterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const filters = [
+    "A to Z",
+    "Z to A",
+    "Less than 10$",
+    "Greater than 10$",
+    "Popular",
+    "Not popular",
+    "Show all",
+  ];
+  const handleFilter = (value: string) => {
+    setFilter(value);
+    setIsOpen(false);
+  };
 
   return (
     <div className={css.container}>
@@ -21,48 +34,17 @@ export default function Filter({ filter, setFilter }: FilterProps) {
       </button>
       {isOpen && (
         <ul className={css.filterList}>
-          <li
-            className={`${css.filterItem} ${filter === "A to Z" ? css.active : ""}`}
-            onClick={() => setFilter("A to Z")}
-          >
-            A to Z
-          </li>
-          <li
-            className={`${css.filterItem} ${filter === "Z to A" ? css.active : ""}`}
-            onClick={() => setFilter("Z to A")}
-          >
-            Z to A
-          </li>
-          <li
-            className={`${css.filterItem} ${filter === "Less than 10$" ? css.active : ""}`}
-            onClick={() => setFilter("Less than 10$")}
-          >
-            Less than 10$
-          </li>
-          <li
-            className={`${css.filterItem} ${filter === "Greater than 10$" ? css.active : ""}`}
-            onClick={() => setFilter("Greater than 10$")}
-          >
-            Greater than 10$
-          </li>
-          <li
-            className={`${css.filterItem} ${filter === "Popular" ? css.active : ""}`}
-            onClick={() => setFilter("Popular")}
-          >
-            Popular
-          </li>
-          <li
-            className={`${css.filterItem} ${filter === "Not popular" ? css.active : ""}`}
-            onClick={() => setFilter("Not popular")}
-          >
-            Not popular
-          </li>
-          <li
-            className={`${css.filterItem} ${filter === "Show all" ? css.active : ""}`}
-            onClick={() => setFilter("Show all")}
-          >
-            Show all
-          </li>
+          {filters.map((item) => (
+            <li
+              key={item}
+              className={`${css.filterItem} ${
+                filter === item ? css.active : ""
+              }`}
+              onClick={() => handleFilter(item)}
+            >
+              {item}
+            </li>
+          ))}
         </ul>
       )}
     </div>
