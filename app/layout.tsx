@@ -14,6 +14,19 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
+
+  openGraph: {
+    title: "MindSpace",
+    description: "App for psychologists services",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MindSpace",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
