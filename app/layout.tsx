@@ -11,6 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MindSpace",
   description: "App for psychologists services",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
