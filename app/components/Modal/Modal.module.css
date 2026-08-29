@@ -1,0 +1,90 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal {
+  background: #fbfbfb;
+  border-radius: 30px;
+  max-width: 565px;
+  position: relative;
+  padding: 64px;
+}
+.closeIcon {
+  color: #191a15;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+/* Modal Log In & Regiter */
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.title {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.descr {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: rgba(25, 26, 21, 0.5);
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 18px;
+}
+.logInBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  background: #54be96;
+  border-radius: 30px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 438px;
+  height: 52px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #fbfbfb;
+  margin-top: 22px;
+}
+.input {
+  width: 438px;
+  height: 52px;
+  padding: 16px 18px;
+
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #191a15;
+}

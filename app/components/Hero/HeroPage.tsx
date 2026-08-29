@@ -1,6 +1,7 @@
 import Image from "next/image";
 import css from "./HeroPage.module.css";
 import { MdOutlineArrowOutward } from "react-icons/md";
+import Link from "next/link";
 export default function Hero() {
   return (
     <main>
@@ -15,9 +16,9 @@ export default function Hero() {
             guide in your own life with the help of our experienced
             psychologists.
           </p>
-          <button className={css.heroBtn}>
+          <Link href="/psychologists" className={css.heroBtn}>
             Get started <MdOutlineArrowOutward className={css.iconBtn} />
-          </button>
+          </Link>
         </div>
         <Image
           src="/image 1.jpg"

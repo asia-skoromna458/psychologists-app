@@ -2,8 +2,12 @@
 import Link from "next/link";
 import css from "./Header.module.css";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import LoginModal from "../Modal/LoginModal/LoginModal";
+import RegisterModal from "../Modal/RegisterModal/RegisterModal";
 
 export default function Header() {
+  const [modal, setModal] = useState<"login" | "registration" | null>(null);
   const pathname = usePathname();
   return (
     <header className={css.header}>
@@ -29,11 +33,22 @@ export default function Header() {
           </Link>
         </nav>
         <div>
-          <button className={css.logInBtn}>Log In</button>
-          <button className={css.regBtn}>Registration</button>
+          <button className={css.logInBtn} onClick={() => setModal("login")}>
+            Log In
+          </button>
+          <button
+            className={css.regBtn}
+            onClick={() => setModal("registration")}
+          >
+            Registration
+          </button>
         </div>
       </div>
       <hr className={css.divider} />
+      {modal === "login" && <LoginModal onClose={() => setModal(null)} />}
+      {modal === "registration" && (
+        <RegisterModal onClose={() => setModal(null)} />
+      )}
     </header>
   );
 }
