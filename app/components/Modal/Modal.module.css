@@ -88,3 +88,19 @@
   line-height: 1.25;
   color: #191a15;
 }
+.icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.label {
+  position: relative;
+  display: block;
+}

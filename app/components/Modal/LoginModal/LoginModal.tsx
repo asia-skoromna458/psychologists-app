@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import Modal from "../Modal";
 import css from "../Modal.module.css";
+import { HiOutlineEyeOff, HiOutlineEye } from "react-icons/hi";
+import { useState } from "react";
 interface LoginFormValues {
   email: string;
   password: string;
@@ -14,6 +16,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   const onSubmit = (data: LoginFormValues) => {
     console.log(data);
   };
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <Modal onClose={onClose}>
       <div className={css.container}>
@@ -30,12 +33,28 @@ export default function LoginModal({ onClose }: LoginModalProps) {
               className={css.input}
             />
           </label>
-          <label>
+          <label className={css.label}>
             <input
               {...register("password")}
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               className={css.input}
             />
+            {showPassword ? (
+              <HiOutlineEye
+                className={css.icon}
+                onClick={() => {
+                  setShowPassword(false);
+                }}
+              />
+            ) : (
+              <HiOutlineEyeOff
+                className={css.icon}
+                onClick={() => {
+                  setShowPassword(true);
+                }}
+              />
+            )}
           </label>
           <button type="submit" className={css.logInBtn}>
             Log In

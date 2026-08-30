@@ -1,9 +1,12 @@
 import Modal from "../Modal";
 import css from "../Modal.module.css";
+import { HiOutlineEyeOff, HiOutlineEye } from "react-icons/hi";
+import { useState } from "react";
 interface RegisterModalProps {
   onClose: () => void;
 }
 export default function RegisterModal({ onClose }: RegisterModalProps) {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <Modal onClose={onClose}>
       <div className={css.container}>
@@ -21,8 +24,27 @@ export default function RegisterModal({ onClose }: RegisterModalProps) {
             <label>
               <input placeholder="Email" className={css.input} />
             </label>
-            <label>
-              <input placeholder="Password" className={css.input} />
+            <label className={css.label}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className={css.input}
+              />
+              {showPassword ? (
+                <HiOutlineEye
+                  className={css.icon}
+                  onClick={() => {
+                    setShowPassword(false);
+                  }}
+                />
+              ) : (
+                <HiOutlineEyeOff
+                  className={css.icon}
+                  onClick={() => {
+                    setShowPassword(true);
+                  }}
+                />
+              )}
             </label>
             <button type="submit" className={css.logInBtn}>
               Sign Up

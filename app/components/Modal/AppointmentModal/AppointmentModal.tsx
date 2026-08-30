@@ -28,7 +28,7 @@ export default function AppointmentModal({
             height={44}
             className={css.image}
           />
-          <p className={css.header}>Psychologist</p>
+          <p className={css.header}>Your psychologists</p>
           <h2 className={css.name}>{psychologist.name}</h2>
         </div>
         <form className={css.form}>

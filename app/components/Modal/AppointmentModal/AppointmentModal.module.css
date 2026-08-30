@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.title {
+  font-weight: 500;
+  font-size: 40px;
+
+  /* line-height: 48px; */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #191a15;
+  margin-bottom: 20px;
+}
+.descr {
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 20px; */
+  line-height: 1.25;
+  color: rgba(25, 26, 21, 0.5);
+  margin-bottom: 40px;
+}
+.image {
+  border-radius: 15px;
+  grid-row: 1 / 3;
+}
+.psychologist {
+  display: grid;
+  grid-template-columns: 44px auto;
+  column-gap: 14px;
+  margin-bottom: 40px;
+}
+
+.header {
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8a8a89;
+}
+.name {
+  font-weight: 500;
+  font-size: 16px;
+}
+.input {
+  width: 438px;
+  height: 52px;
+  padding: 16px 18px;
+
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #191a15;
+}
+.logInBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  background: #54be96;
+  border-radius: 30px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 438px;
+  height: 52px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #fbfbfb;
+  margin-top: 22px;
+}
+.form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 18px;
+}
