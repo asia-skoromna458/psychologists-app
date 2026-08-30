@@ -7,9 +7,15 @@ import { useState } from "react";
 import Reviews from "../Reviews/Reviews";
 interface PsychologistCardProps {
   psychologist: Psychologist;
+  onAppointment: (psychologist: Psychologist) => void;
 }
-export default function PsyCard({ psychologist }: PsychologistCardProps) {
+
+export default function PsyCard({
+  psychologist,
+  onAppointment,
+}: PsychologistCardProps) {
   const [showMore, setShowMore] = useState(false);
+
   return (
     <div className={css.container}>
       <div className={css.imageWrapper}>
@@ -38,7 +44,6 @@ export default function PsyCard({ psychologist }: PsychologistCardProps) {
           </p>
           <FaRegHeart className={css.heartIcon} />
         </div>
-
         <ul className={css.infoTags}>
           <li className={css.tagItem}>
             <span className={css.spanTag}>Experience: </span>
@@ -62,7 +67,12 @@ export default function PsyCard({ psychologist }: PsychologistCardProps) {
             Read more
           </button>
         )}
-        {showMore && <Reviews reviews={psychologist.reviews} />}
+        {showMore && (
+          <Reviews
+            reviews={psychologist.reviews}
+            onAppointment={() => onAppointment(psychologist)}
+          />
+        )}
       </div>
     </div>
   );

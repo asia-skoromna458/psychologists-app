@@ -6,11 +6,14 @@ import PsyCard from "../components/PsyCard/PsyCard";
 import css from "./page.module.css";
 import Filter from "../components/Filter/Filter";
 import FilteredPsychologist from "@/lib/filters/filters";
+import AppointmentModal from "../components/Modal/AppointmentModal/AppointmentModal";
 
 export default function PsychologistsPage() {
   const [psychologists, setPsychologists] = useState<Psychologist[]>([]);
   const [lastKey, setLastKey] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("A to Z");
+  const [selectedPsychologist, setSelectedPsychologist] =
+    useState<Psychologist | null>(null);
 
   useEffect(() => {
     async function fetchPsychologists() {
@@ -32,12 +35,22 @@ export default function PsychologistsPage() {
       <div className={css.container}>
         <Filter filter={filter} setFilter={setFilter} />
         {filteredPsychologist.map((psychologist, index) => (
-          <PsyCard key={index} psychologist={psychologist} />
+          <PsyCard
+            key={index}
+            psychologist={psychologist}
+            onAppointment={setSelectedPsychologist}
+          />
         ))}
         <button onClick={LoadMore} className={css.loadMoreBtn}>
           Load more
         </button>
       </div>
+      {selectedPsychologist && (
+        <AppointmentModal
+          onClose={() => setSelectedPsychologist(null)}
+          psychologist={selectedPsychologist}
+        />
+      )}
     </main>
   );
 }

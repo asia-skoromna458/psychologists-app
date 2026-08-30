@@ -4,9 +4,10 @@ import { FaStar } from "react-icons/fa";
 
 interface ReviewsProps {
   reviews: Review[];
+  onAppointment: () => void;
 }
 
-export default function Reviews({ reviews }: ReviewsProps) {
+export default function Reviews({ reviews, onAppointment }: ReviewsProps) {
   return (
     <div className={css.container}>
       {reviews.map((review, index) => (
@@ -26,7 +27,9 @@ export default function Reviews({ reviews }: ReviewsProps) {
           <p className={css.comment}>{review.comment}</p>
         </div>
       ))}
-      <button className={css.appointmentBtn}>Make an appointment</button>
+      <button className={css.appointmentBtn} onClick={onAppointment}>
+        Make an appointment
+      </button>
     </div>
   );
 }
