@@ -7,8 +7,6 @@
 .title {
   font-weight: 500;
   font-size: 40px;
-
-  /* line-height: 48px; */
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #191a15;
@@ -17,8 +15,6 @@
 .descr {
   font-weight: 400;
   font-size: 16px;
-
-  /* line-height: 20px; */
   line-height: 1.25;
   color: rgba(25, 26, 21, 0.5);
   margin-bottom: 40px;
@@ -77,9 +73,30 @@
   margin-top: 22px;
 }
 .form {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 18px;
+}
+.form label:first-child,
+.form label:last-of-type,
+.logInBtn {
+  grid-column: 1 / -1;
+}
+
+.phoneInput {
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 232px;
+}
+
+.timeInput {
+  width: 232px;
+  height: 52px;
+  box-sizing: border-box;
+  appearance: none;
+
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+  padding: 16px 18px;
 }

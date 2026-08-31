@@ -3,16 +3,35 @@ import Modal from "../Modal";
 import css from "../Modal.module.css";
 import { HiOutlineEyeOff, HiOutlineEye } from "react-icons/hi";
 import { useState } from "react";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 interface LoginFormValues {
   email: string;
   password: string;
 }
+
 interface LoginModalProps {
   onClose: () => void;
 }
 
+const LoginFormSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(8, "Minimum 8 characters")
+    .required("Password is required"),
+});
+
 export default function LoginModal({ onClose }: LoginModalProps) {
-  const { register, handleSubmit } = useForm<LoginFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: yupResolver(LoginFormSchema),
+  });
   const onSubmit = (data: LoginFormValues) => {
     console.log(data);
   };
@@ -32,6 +51,9 @@ export default function LoginModal({ onClose }: LoginModalProps) {
               placeholder="Email"
               className={css.input}
             />
+            {errors.email && (
+              <p className={css.errorMessage}>{errors.email.message}</p>
+            )}
           </label>
           <label className={css.label}>
             <input
@@ -54,6 +76,9 @@ export default function LoginModal({ onClose }: LoginModalProps) {
                   setShowPassword(true);
                 }}
               />
+            )}
+            {errors.password && (
+              <p className={css.errorMessage}>{errors.password.message}</p>
             )}
           </label>
           <button type="submit" className={css.logInBtn}>

@@ -35,8 +35,12 @@ export default function AppointmentModal({
           <label>
             <input placeholder="Name" className={css.input} />
           </label>
-          <label>
-            <input placeholder="+380" type="tel" />
+          <label className={css.phone}>
+            <input placeholder="+380" type="tel" className={css.phoneInput} />
+          </label>
+          <label className={css.time}>
+            {/* /змінити на кастомний/ */}
+            <input type="time" className={css.timeInput} placeholder="00:00" />
           </label>
           <label>
             <input placeholder="Email" className={css.input} />

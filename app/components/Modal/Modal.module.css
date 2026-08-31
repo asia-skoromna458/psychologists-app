@@ -104,3 +104,10 @@
   position: relative;
   display: block;
 }
+
+/* Error */
+.errorMessage {
+  color: rgba(255, 0, 0, 0.7);
+  font-size: 11px;
+  line-height: 1.3;
+}
