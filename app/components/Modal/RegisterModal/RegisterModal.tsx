@@ -5,6 +5,8 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { registerUser } from "@/lib/firebase/auth";
+import toast from "react-hot-toast";
 
 interface RegisterModalProps {
   onClose: () => void;
@@ -38,8 +40,13 @@ export default function RegisterModal({ onClose }: RegisterModalProps) {
   } = useForm<RegisterFormValues>({
     resolver: yupResolver(RegisterFormSchema),
   });
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log(data);
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    try {
+      await registerUser(data.name, data.email, data.password);
+    } catch {
+      toast.error("This email is already in use");
+    }
   };
   return (
     <Modal onClose={onClose}>

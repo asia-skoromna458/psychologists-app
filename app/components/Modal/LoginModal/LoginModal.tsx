@@ -5,6 +5,8 @@ import { HiOutlineEyeOff, HiOutlineEye } from "react-icons/hi";
 import { useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { loginUser, useAuthStore } from "@/lib/firebase/auth";
+import toast from "react-hot-toast";
 
 interface LoginFormValues {
   email: string;
@@ -32,8 +34,14 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   } = useForm<LoginFormValues>({
     resolver: yupResolver(LoginFormSchema),
   });
-  const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
+  const setUser = useAuthStore((state) => state.setUser);
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      const res = await loginUser(data.email, data.password);
+      setUser(res.user);
+    } catch {
+      toast.error("Invalid email or password");
+    }
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
