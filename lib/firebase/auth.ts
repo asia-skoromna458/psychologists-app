@@ -47,8 +47,6 @@ export const getCurrentUser = () => {
   console.log("getCurrentUser called");
 
   onAuthStateChanged(auth, (user) => {
-    console.log("auth state:", user);
-
     if (user) {
       useAuthStore.getState().setUser(user);
     } else {
