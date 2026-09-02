@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { User } from "firebase/auth";
@@ -34,6 +35,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   isAuthenticated: false,
   user: null,
   setUser: (user: User) => {
+    console.log("setUser:", user);
     set(() => ({ user, isAuthenticated: true }));
   },
   clearIsAuth: () => {
@@ -42,11 +44,18 @@ export const useAuthStore = create<AuthStore>((set) => ({
 }));
 
 export const getCurrentUser = () => {
+  console.log("getCurrentUser called");
+
   onAuthStateChanged(auth, (user) => {
+    console.log("auth state:", user);
+
     if (user) {
       useAuthStore.getState().setUser(user);
     } else {
       useAuthStore.getState().clearIsAuth();
     }
   });
+};
+export const logout = async () => {
+  await signOut(auth);
 };
