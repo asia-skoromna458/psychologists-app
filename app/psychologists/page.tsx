@@ -39,6 +39,7 @@ export default function PsychologistsPage() {
             key={index}
             psychologist={psychologist}
             onAppointment={setSelectedPsychologist}
+            index={index}
           />
         ))}
         <button onClick={LoadMore} className={css.loadMoreBtn}>

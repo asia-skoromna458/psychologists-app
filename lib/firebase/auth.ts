@@ -16,7 +16,11 @@ export const registerUser = async (
 ) => {
   const res = await createUserWithEmailAndPassword(auth, email, password);
   const userRef = ref(db, `users/${res.user.uid}`);
-  await set(userRef, { name, email });
+  await set(userRef, {
+    name,
+    email,
+    favorites: {},
+  });
 };
 
 export const loginUser = async (email: string, password: string) => {
@@ -35,7 +39,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
   isAuthenticated: false,
   user: null,
   setUser: (user: User) => {
-    console.log("setUser:", user);
     set(() => ({ user, isAuthenticated: true }));
   },
   clearIsAuth: () => {
@@ -44,8 +47,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
 }));
 
 export const getCurrentUser = () => {
-  console.log("getCurrentUser called");
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       useAuthStore.getState().setUser(user);

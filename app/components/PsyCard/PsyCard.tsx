@@ -2,19 +2,22 @@ import { Psychologist } from "@/types/psychologist";
 import css from "./PsyCard.module.css";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import Reviews from "../Reviews/Reviews";
 interface PsychologistCardProps {
   psychologist: Psychologist;
   onAppointment: (psychologist: Psychologist) => void;
+  index: number;
 }
 
 export default function PsyCard({
   psychologist,
   onAppointment,
+  // index,
 }: PsychologistCardProps) {
   const [showMore, setShowMore] = useState(false);
+  const [isFavorites, setIsFavorites] = useState(false);
 
   return (
     <div className={css.container}>
@@ -42,7 +45,15 @@ export default function PsyCard({
               {psychologist.price_per_hour}$
             </span>
           </p>
-          <FaRegHeart className={css.heartIcon} />
+
+          {isFavorites ? (
+            <FaHeart className={css.favorites} />
+          ) : (
+            <FaRegHeart
+              className={css.heartIcon}
+              onClick={() => setIsFavorites(!isFavorites)}
+            />
+          )}
         </div>
         <ul className={css.infoTags}>
           <li className={css.tagItem}>
