@@ -1,10 +1,16 @@
+"use client";
 import { Psychologist } from "@/types/psychologist";
 import css from "./PsyCard.module.css";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Reviews from "../Reviews/Reviews";
+import {
+  getFavorites,
+  addToFavorites,
+  removeFromFavorites,
+} from "@/lib/firebase/favorites";
 interface PsychologistCardProps {
   psychologist: Psychologist;
   onAppointment: (psychologist: Psychologist) => void;
@@ -14,11 +20,26 @@ interface PsychologistCardProps {
 export default function PsyCard({
   psychologist,
   onAppointment,
-  // index,
+  index,
 }: PsychologistCardProps) {
   const [showMore, setShowMore] = useState(false);
   const [isFavorites, setIsFavorites] = useState(false);
+  useEffect(() => {
+    async function loadFavorites() {
+      const favorites = await getFavorites();
+      setIsFavorites(favorites?.[index]);
+    }
+    loadFavorites();
+  }, [index]);
+  const handleClick = async () => {
+    addToFavorites(index);
+    setIsFavorites(!isFavorites);
+  };
 
+  const handleRemove = async () => {
+    removeFromFavorites(index);
+    setIsFavorites(false);
+  };
   return (
     <div className={css.container}>
       <div className={css.imageWrapper}>
@@ -47,12 +68,9 @@ export default function PsyCard({
           </p>
 
           {isFavorites ? (
-            <FaHeart className={css.favorites} />
+            <FaHeart className={css.favorites} onClick={handleRemove} />
           ) : (
-            <FaRegHeart
-              className={css.heartIcon}
-              onClick={() => setIsFavorites(!isFavorites)}
-            />
+            <FaRegHeart className={css.heartIcon} onClick={handleClick} />
           )}
         </div>
         <ul className={css.infoTags}>

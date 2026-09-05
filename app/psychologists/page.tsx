@@ -28,7 +28,7 @@ export default function PsychologistsPage() {
     setPsychologists((prev) => [...prev, ...res.psychologist]);
     setLastKey(res.lastKey);
   }
-  console.log("filter:", filter);
+
   const filteredPsychologist = FilteredPsychologist(psychologists, filter);
   return (
     <main>

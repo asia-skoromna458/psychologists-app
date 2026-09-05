@@ -44,6 +44,7 @@ export default function RegisterModal({ onClose }: RegisterModalProps) {
   const onSubmit = async (data: RegisterFormValues) => {
     try {
       await registerUser(data.name, data.email, data.password);
+      onClose();
     } catch {
       toast.error("This email is already in use");
     }

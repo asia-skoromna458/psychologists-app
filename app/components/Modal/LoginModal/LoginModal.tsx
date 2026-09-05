@@ -39,6 +39,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
     try {
       const res = await loginUser(data.email, data.password);
       setUser(res.user);
+      onClose();
     } catch {
       toast.error("Invalid email or password");
     }

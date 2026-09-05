@@ -10,6 +10,7 @@ import { get, ref, remove, set } from "firebase/database";
 // };
 export const addToFavorites = async (index: number) => {
   const user = auth.currentUser;
+  console.log("user:", user);
   if (!user) {
     return;
   }
