@@ -7,6 +7,7 @@ import css from "./page.module.css";
 import Filter from "../components/Filter/Filter";
 import FilteredPsychologist from "@/lib/filters/filters";
 import AppointmentModal from "../components/Modal/AppointmentModal/AppointmentModal";
+import LoginModal from "../components/Modal/LoginModal/LoginModal";
 
 export default function PsychologistsPage() {
   const [psychologists, setPsychologists] = useState<Psychologist[]>([]);
@@ -14,6 +15,7 @@ export default function PsychologistsPage() {
   const [filter, setFilter] = useState<string>("A to Z");
   const [selectedPsychologist, setSelectedPsychologist] =
     useState<Psychologist | null>(null);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     async function fetchPsychologists() {
@@ -40,6 +42,7 @@ export default function PsychologistsPage() {
             psychologist={psychologist}
             onAppointment={setSelectedPsychologist}
             index={index}
+            openModal={setModal}
           />
         ))}
         <button onClick={LoadMore} className={css.loadMoreBtn}>
@@ -52,6 +55,7 @@ export default function PsychologistsPage() {
           psychologist={selectedPsychologist}
         />
       )}
+      {modal && <LoginModal onClose={() => setModal(false)} />}
     </main>
   );
 }

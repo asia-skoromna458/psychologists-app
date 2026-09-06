@@ -11,19 +11,24 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from "@/lib/firebase/favorites";
+import { auth } from "@/lib/firebase/firebase";
+import toast from "react-hot-toast";
 interface PsychologistCardProps {
   psychologist: Psychologist;
   onAppointment: (psychologist: Psychologist) => void;
   index: number;
+  openModal?: (value: boolean) => void;
 }
 
 export default function PsyCard({
   psychologist,
   onAppointment,
   index,
+  openModal,
 }: PsychologistCardProps) {
   const [showMore, setShowMore] = useState(false);
   const [isFavorites, setIsFavorites] = useState(false);
+
   useEffect(() => {
     async function loadFavorites() {
       const favorites = await getFavorites();
@@ -32,13 +37,21 @@ export default function PsyCard({
     loadFavorites();
   }, [index]);
   const handleClick = async () => {
-    addToFavorites(index);
-    setIsFavorites(!isFavorites);
-  };
-
-  const handleRemove = async () => {
-    removeFromFavorites(index);
-    setIsFavorites(false);
+    const user = auth.currentUser;
+    if (!user) {
+      openModal?.(true);
+      toast(
+        "This feature is available only for authorized users.Please log in or register.",
+      );
+      return;
+    }
+    if (isFavorites) {
+      await removeFromFavorites(index);
+      setIsFavorites(false);
+    } else {
+      await addToFavorites(index);
+      setIsFavorites(true);
+    }
   };
   return (
     <div className={css.container}>
@@ -68,7 +81,7 @@ export default function PsyCard({
           </p>
 
           {isFavorites ? (
-            <FaHeart className={css.favorites} onClick={handleRemove} />
+            <FaHeart className={css.favorites} onClick={handleClick} />
           ) : (
             <FaRegHeart className={css.heartIcon} onClick={handleClick} />
           )}
