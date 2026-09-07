@@ -47,7 +47,10 @@ export default function FavoritesPage() {
     psychologists.map((item) => item.psychologist),
     filter,
   );
-
+  // const handleRemoweFavorite = async (index: number) => {
+  //   await removeFromFavorites(index);
+  //   setPsychologists((prev) => prev.filter((item) => item.index !== index));
+  // };
   return (
     <main className={css.container}>
       <Filter filter={filter} setFilter={setFilter} />
