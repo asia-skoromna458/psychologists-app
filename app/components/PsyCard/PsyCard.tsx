@@ -18,15 +18,13 @@ import { useFavoriteStore } from "@/lib/store/favorite";
 interface PsychologistCardProps {
   psychologist: Psychologist;
   onAppointment: (psychologist: Psychologist) => void;
-  index: number;
   openModal?: (value: boolean) => void;
-  removeFavorite?: (index: number) => Promise<void>;
+  removeFavorite?: (id: string) => Promise<void>;
 }
 
 export default function PsyCard({
   psychologist,
   onAppointment,
-  index,
   openModal,
   removeFavorite,
 }: PsychologistCardProps) {
@@ -36,12 +34,12 @@ export default function PsyCard({
   useEffect(() => {
     async function loadFavorites() {
       const favorites = await getFavorites();
-      const indexes = Object.keys(favorites ?? {}).map(Number);
+      const indexes = Object.keys(favorites ?? {});
       setFavoriteIndexes(indexes);
     }
     loadFavorites();
   }, [setFavoriteIndexes]);
-  const isFavorites = favoriteIndexes.includes(index);
+  const isFavorites = favoriteIndexes.includes(psychologist.id);
 
   const handleClick = async () => {
     const user = auth.currentUser;
@@ -54,14 +52,16 @@ export default function PsyCard({
     }
 
     if (isFavorites) {
-      await removeFromFavorites(index);
-      removeFavorite?.(index);
+      await removeFromFavorites(psychologist.id);
+      removeFavorite?.(psychologist.id);
       setFavoriteIndexes(
-        favoriteIndexes.filter((favoriteIndexes) => favoriteIndexes !== index),
+        favoriteIndexes.filter(
+          (favoriteIndexes) => favoriteIndexes !== psychologist.id,
+        ),
       );
     } else {
-      await addToFavorites(index);
-      setFavoriteIndexes([...favoriteIndexes, index]);
+      await addToFavorites(psychologist.id);
+      setFavoriteIndexes([...favoriteIndexes, psychologist.id]);
     }
   };
   return (

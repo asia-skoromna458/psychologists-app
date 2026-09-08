@@ -1,4 +1,5 @@
 export interface Psychologist {
+  id: string;
   name: string;
   avatar_url: string;
   experience: string;
@@ -16,8 +17,3 @@ export interface Review {
   rating: number;
   comment: string;
 }
-
-export type FavoritePsychologist = {
-  psychologist: Psychologist;
-  index: number;
-};

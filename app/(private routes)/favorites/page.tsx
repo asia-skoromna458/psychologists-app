@@ -4,7 +4,7 @@ import { getFavorites, removeFromFavorites } from "@/lib/firebase/favorites";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getPsychologist } from "@/lib/api/api";
-import { FavoritePsychologist, Psychologist } from "@/types/psychologist";
+import { Psychologist } from "@/types/psychologist";
 import PsyCard from "@/app/components/PsyCard/PsyCard";
 import AppointmentModal from "@/app/components/Modal/AppointmentModal/AppointmentModal";
 import Filter from "@/app/components/Filter/Filter";
@@ -15,9 +15,7 @@ import css from "./page.module.css";
 export default function FavoritesPage() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const router = useRouter();
-  const [psychologists, setPsychologists] = useState<FavoritePsychologist[]>(
-    [],
-  );
+  const [psychologists, setPsychologists] = useState<Psychologist[]>([]);
   const [filter, setFilter] = useState<string>("A to Z");
   const [selectedPsychologist, setSelectedPsychologist] =
     useState<Psychologist | null>(null);
@@ -30,14 +28,9 @@ export default function FavoritesPage() {
       const res = await getPsychologist(null);
 
       const favorites = await getFavorites();
-      const favoriteIndexes = Object.keys(favorites);
+      const favoriteId = Object.keys(favorites ?? {});
       setPsychologists(
-        res.psychologist
-          .map((psychologist, index) => ({
-            psychologist: psychologist,
-            index: index,
-          }))
-          .filter((item) => favoriteIndexes.includes(item.index.toString())),
+        res.psychologist.filter((item) => favoriteId.includes(item.id)),
       );
     }
     fetchPsychologists();
@@ -45,22 +38,18 @@ export default function FavoritesPage() {
   if (!isAuthenticated) {
     return null;
   }
-  const filteredPsychologist = FilteredPsychologist(
-    psychologists.map((item) => item.psychologist),
-    filter,
-  );
-  const handleRemoveFavorite = async (index: number) => {
-    await removeFromFavorites(index);
-    setPsychologists((prev) => prev.filter((item) => item.index !== index));
+  const filteredPsychologist = FilteredPsychologist(psychologists, filter);
+  const handleRemoveFavorite = async (id: string) => {
+    await removeFromFavorites(id);
+    setPsychologists((prev) => prev.filter((item) => item.id !== id));
   };
   return (
     <main className={css.container}>
       <Filter filter={filter} setFilter={setFilter} />
-      {filteredPsychologist.map((psychologist, index) => (
+      {filteredPsychologist.map((psychologist) => (
         <PsyCard
-          key={index}
+          key={psychologist.id}
           psychologist={psychologist}
-          index={index}
           onAppointment={setSelectedPsychologist}
           removeFavorite={handleRemoveFavorite}
         />
