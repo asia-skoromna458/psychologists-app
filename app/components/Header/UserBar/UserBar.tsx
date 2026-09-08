@@ -1,8 +1,10 @@
 import { RiFileUserFill } from "react-icons/ri";
 import css from "./UserBar.module.css";
 import { logout } from "@/lib/firebase/auth";
+import { useFavoriteStore } from "@/lib/store/favorite";
 
 export default function UserBar() {
+  const favorites = useFavoriteStore((state) => state.setFavorites);
   return (
     <div className={css.container}>
       <RiFileUserFill className={css.icon} />
@@ -11,6 +13,7 @@ export default function UserBar() {
         className={css.logOutBtn}
         onClick={() => {
           logout();
+          favorites([]);
         }}
       >
         Log Out

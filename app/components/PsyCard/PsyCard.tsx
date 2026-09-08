@@ -13,11 +13,14 @@ import {
 } from "@/lib/firebase/favorites";
 import { auth } from "@/lib/firebase/firebase";
 import toast from "react-hot-toast";
+import { useFavoriteStore } from "@/lib/store/favorite";
+
 interface PsychologistCardProps {
   psychologist: Psychologist;
   onAppointment: (psychologist: Psychologist) => void;
   index: number;
   openModal?: (value: boolean) => void;
+  removeFavorite?: (index: number) => Promise<void>;
 }
 
 export default function PsyCard({
@@ -25,17 +28,21 @@ export default function PsyCard({
   onAppointment,
   index,
   openModal,
+  removeFavorite,
 }: PsychologistCardProps) {
   const [showMore, setShowMore] = useState(false);
-  const [isFavorites, setIsFavorites] = useState(false);
-
+  const favoriteIndexes = useFavoriteStore((state) => state.favorites);
+  const setFavoriteIndexes = useFavoriteStore((state) => state.setFavorites);
   useEffect(() => {
     async function loadFavorites() {
       const favorites = await getFavorites();
-      setIsFavorites(favorites?.[index]);
+      const indexes = Object.keys(favorites ?? {}).map(Number);
+      setFavoriteIndexes(indexes);
     }
     loadFavorites();
-  }, [index]);
+  }, [setFavoriteIndexes]);
+  const isFavorites = favoriteIndexes.includes(index);
+
   const handleClick = async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -45,12 +52,16 @@ export default function PsyCard({
       );
       return;
     }
+
     if (isFavorites) {
       await removeFromFavorites(index);
-      setIsFavorites(false);
+      removeFavorite?.(index);
+      setFavoriteIndexes(
+        favoriteIndexes.filter((favoriteIndexes) => favoriteIndexes !== index),
+      );
     } else {
       await addToFavorites(index);
-      setIsFavorites(true);
+      setFavoriteIndexes([...favoriteIndexes, index]);
     }
   };
   return (

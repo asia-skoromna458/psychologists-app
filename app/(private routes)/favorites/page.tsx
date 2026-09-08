@@ -1,6 +1,6 @@
 "use client";
 import { useAuthStore } from "@/lib/firebase/auth";
-import { getFavorites } from "@/lib/firebase/favorites";
+import { getFavorites, removeFromFavorites } from "@/lib/firebase/favorites";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getPsychologist } from "@/lib/api/api";
@@ -10,6 +10,7 @@ import AppointmentModal from "@/app/components/Modal/AppointmentModal/Appointmen
 import Filter from "@/app/components/Filter/Filter";
 import FilteredPsychologist from "@/lib/filters/filters";
 import css from "./page.module.css";
+// import { useFavoriteStore } from "@/lib/store/favorite";
 
 export default function FavoritesPage() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -20,6 +21,7 @@ export default function FavoritesPage() {
   const [filter, setFilter] = useState<string>("A to Z");
   const [selectedPsychologist, setSelectedPsychologist] =
     useState<Psychologist | null>(null);
+  // const usFavorite = useFavoriteStore((state) => state.favorites);
   useEffect(() => {
     if (!isAuthenticated) {
       router.push("/");
@@ -47,10 +49,10 @@ export default function FavoritesPage() {
     psychologists.map((item) => item.psychologist),
     filter,
   );
-  // const handleRemoweFavorite = async (index: number) => {
-  //   await removeFromFavorites(index);
-  //   setPsychologists((prev) => prev.filter((item) => item.index !== index));
-  // };
+  const handleRemoveFavorite = async (index: number) => {
+    await removeFromFavorites(index);
+    setPsychologists((prev) => prev.filter((item) => item.index !== index));
+  };
   return (
     <main className={css.container}>
       <Filter filter={filter} setFilter={setFilter} />
@@ -60,6 +62,7 @@ export default function FavoritesPage() {
           psychologist={psychologist}
           index={index}
           onAppointment={setSelectedPsychologist}
+          removeFavorite={handleRemoveFavorite}
         />
       ))}
       {selectedPsychologist && (

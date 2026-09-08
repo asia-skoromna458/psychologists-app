@@ -43,7 +43,8 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  max-width: 235px;
+  width: 235px;
+  white-space: nowrap;
 }
 .heroBtn:hover {
   background-color: #36a379;
@@ -51,6 +52,11 @@
 .heroBtn:active {
   background-color: #36a379;
   transform: scale(0.98);
+}
+.iconBtn {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .image {
