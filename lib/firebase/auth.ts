@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { User } from "firebase/auth";
@@ -15,6 +16,8 @@ export const registerUser = async (
   password: string,
 ) => {
   const res = await createUserWithEmailAndPassword(auth, email, password);
+  await updateProfile(res.user, { displayName: name });
+  useAuthStore.getState().setUser(res.user);
   const userRef = ref(db, `users/${res.user.uid}`);
   await set(userRef, {
     name,

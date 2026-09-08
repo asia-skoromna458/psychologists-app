@@ -10,7 +10,6 @@ import AppointmentModal from "@/app/components/Modal/AppointmentModal/Appointmen
 import Filter from "@/app/components/Filter/Filter";
 import FilteredPsychologist from "@/lib/filters/filters";
 import css from "./page.module.css";
-// import { useFavoriteStore } from "@/lib/store/favorite";
 
 export default function FavoritesPage() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -19,7 +18,7 @@ export default function FavoritesPage() {
   const [filter, setFilter] = useState<string>("A to Z");
   const [selectedPsychologist, setSelectedPsychologist] =
     useState<Psychologist | null>(null);
-  // const usFavorite = useFavoriteStore((state) => state.favorites);
+
   useEffect(() => {
     if (!isAuthenticated) {
       router.push("/");
