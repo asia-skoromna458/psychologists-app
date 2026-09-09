@@ -3,7 +3,7 @@ import { useAuthStore } from "@/lib/firebase/auth";
 import { getFavorites, removeFromFavorites } from "@/lib/firebase/favorites";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getPsychologist } from "@/lib/api/api";
+import { getPsychologist, getPsychologistById } from "@/lib/api/api";
 import { Psychologist } from "@/types/psychologist";
 import PsyCard from "@/app/components/PsyCard/PsyCard";
 import AppointmentModal from "@/app/components/Modal/AppointmentModal/AppointmentModal";
@@ -24,13 +24,11 @@ export default function FavoritesPage() {
       router.push("/");
     }
     async function fetchPsychologists() {
-      const res = await getPsychologist(null);
+      const res = await getFavorites();
 
-      const favorites = await getFavorites();
-      const favoriteId = Object.keys(favorites ?? {});
-      setPsychologists(
-        res.psychologist.filter((item) => favoriteId.includes(item.id)),
-      );
+      const favoriteId = Object.keys(res ?? {});
+      const psychologistData = await getPsychologistById(favoriteId);
+      setPsychologists(psychologistData);
     }
     fetchPsychologists();
   }, [isAuthenticated, router]);

@@ -41,3 +41,13 @@ export const getPsychologist = async (
     }),
   };
 };
+
+export const getPsychologistById = async (
+  ids: string[],
+): Promise<Psychologist[]> => {
+  const promises = ids.map(async (id) => {
+    const snapshot = await get(ref(db, `/${id}`));
+    return { ...(snapshot.val() as Psychologist), id };
+  });
+  return Promise.all(promises);
+};

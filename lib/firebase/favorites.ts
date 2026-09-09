@@ -1,13 +1,6 @@
 import { auth, db } from "./firebase";
 import { get, ref, remove, set } from "firebase/database";
 
-// const getUser = async () => {
-//   const user = auth.currentUser;
-//   if (!user) {
-//     return;
-//   }
-//   return user;
-// };
 export const addToFavorites = async (id: string) => {
   const user = auth.currentUser;
   console.log("user:", user);
