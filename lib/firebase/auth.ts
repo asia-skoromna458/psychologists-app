@@ -36,9 +36,12 @@ type AuthStore = {
   user: User | null;
   setUser: (user: User) => void;
   clearIsAuth: () => void;
+  isAuthChecked: boolean;
+  setAuthChecked: () => void;
 };
 
 export const useAuthStore = create<AuthStore>((set) => ({
+  isAuthChecked: false,
   isAuthenticated: false,
   user: null,
   setUser: (user: User) => {
@@ -46,6 +49,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
   },
   clearIsAuth: () => {
     set(() => ({ user: null, isAuthenticated: false }));
+  },
+  setAuthChecked: () => {
+    set(() => ({ isAuthChecked: true }));
   },
 }));
 
@@ -56,6 +62,7 @@ export const getCurrentUser = () => {
     } else {
       useAuthStore.getState().clearIsAuth();
     }
+    useAuthStore.getState().setAuthChecked();
   });
 };
 export const logout = async () => {

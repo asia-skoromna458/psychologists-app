@@ -13,6 +13,7 @@ import css from "./page.module.css";
 
 export default function FavoritesPage() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthChecked = useAuthStore((state) => state.isAuthChecked);
   const router = useRouter();
   const [psychologists, setPsychologists] = useState<Psychologist[]>([]);
   const [filter, setFilter] = useState<string>("A to Z");
@@ -20,7 +21,7 @@ export default function FavoritesPage() {
     useState<Psychologist | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && isAuthChecked) {
       router.push("/");
     }
     async function fetchPsychologists() {
@@ -31,9 +32,9 @@ export default function FavoritesPage() {
       setPsychologists(psychologistData);
     }
     fetchPsychologists();
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, isAuthChecked]);
   if (!isAuthenticated) {
-    return null;
+    return null; //додати лоадер
   }
   const filteredPsychologist = FilteredPsychologist(psychologists, filter);
   const handleRemoveFavorite = async (id: string) => {
