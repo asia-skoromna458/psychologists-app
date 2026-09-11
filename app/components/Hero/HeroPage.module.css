@@ -64,3 +64,77 @@
   height: 526px;
   object-fit: cover;
 }
+
+.imageWrapper {
+  position: relative;
+}
+.badge1 {
+  background: #4535af;
+  rotate: -15deg;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  position: absolute;
+  top: 185px;
+  bottom: 292px;
+  right: 454px;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.badge2 {
+  width: 311px;
+  height: 118px;
+  background: #54be96;
+  border-radius: 20px;
+  position: absolute;
+  top: 333px;
+  bottom: 75px;
+  right: 254px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: 32px;
+  column-gap: 16px;
+}
+.checkIcon {
+  background: #54be96;
+  color: #fbfbfb;
+  border-radius: 13px;
+  width: 54px;
+  height: 54px;
+  grid-row: 1 / 3;
+}
+.badgeTextTop {
+  font-size: 14px;
+  color: rgba(251, 251, 251, 0.5);
+  grid-column: 2;
+  grid-row: 1;
+  white-space: nowrap;
+}
+.badgeTextBotom {
+  font-weight: 700;
+  font-size: 24px;
+  grid-column: 2;
+  grid-row: 2;
+  color: #fbfbfb;
+}
+.badge3 {
+  position: absolute;
+  rotate: 15deg;
+  width: 48px;
+  height: 48px;
+  background-color: #fbc75e;
+  border-radius: 10px;
+  top: 38px;
+  bottom: 429px;
+  left: 449px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.peopleIcon {
+  color: #fff;
+  height: 17px;
+}

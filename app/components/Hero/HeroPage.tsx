@@ -2,6 +2,8 @@ import Image from "next/image";
 import css from "./HeroPage.module.css";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import Link from "next/link";
+import { IoCheckbox } from "react-icons/io5";
+import { FaUserGroup } from "react-icons/fa6";
 export default function Hero() {
   return (
     <main>
@@ -20,13 +22,24 @@ export default function Hero() {
             Get started <MdOutlineArrowOutward className={css.iconBtn} />
           </Link>
         </div>
-        <Image
-          src="/image 1.jpg"
-          alt="Hero picture"
-          width={464}
-          height={526}
-          className={css.image}
-        />
+        <div className={css.imageWrapper}>
+          <Image
+            src="/image 1.jpg"
+            alt="Hero picture"
+            width={464}
+            height={526}
+            className={css.image}
+          />
+          <div className={css.badge1}>?</div>
+          <div className={css.badge2}>
+            <IoCheckbox className={css.checkIcon} />
+            <p className={css.badgeTextTop}>Experienced psychologists</p>
+            <p className={css.badgeTextBotom}>15,000</p>
+          </div>
+          <div className={css.badge3}>
+            <FaUserGroup className={css.peopleIcon} />
+          </div>
+        </div>
       </div>
     </main>
   );
