@@ -51,9 +51,11 @@ export default function PsychologistsPage() {
           openModal={setModal}
         />
       ))}
-      <button onClick={LoadMore} className={css.loadMoreBtn}>
-        Load more
-      </button>
+      {lastKey !== null && (
+        <button onClick={LoadMore} className={css.loadMoreBtn}>
+          Load more
+        </button>
+      )}
       {selectedPsychologist && (
         <AppointmentModal
           onClose={() => setSelectedPsychologist(null)}
