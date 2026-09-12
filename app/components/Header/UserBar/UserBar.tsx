@@ -4,7 +4,7 @@ import { useFavoriteStore } from "@/lib/store/favorite";
 import Image from "next/image";
 
 export default function UserBar() {
-  const favorites = useFavoriteStore((state) => state.setFavorites);
+  const setFavorites = useFavoriteStore((state) => state.setFavorites);
   const user = useAuthStore((state) => state.user);
   return (
     <div className={css.container}>
@@ -16,7 +16,7 @@ export default function UserBar() {
         className={css.logOutBtn}
         onClick={() => {
           logout();
-          favorites([]);
+          setFavorites([]);
         }}
       >
         Log Out

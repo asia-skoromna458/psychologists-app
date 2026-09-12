@@ -3,10 +3,10 @@ import Modal from "../Modal";
 import css from "../Modal.module.css";
 import { HiOutlineEyeOff, HiOutlineEye } from "react-icons/hi";
 import { useState } from "react";
-import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginUser, useAuthStore } from "@/lib/firebase/auth";
 import toast from "react-hot-toast";
+import { LoginFormSchema } from "@/lib/validation/schemas";
 
 interface LoginFormValues {
   email: string;
@@ -16,15 +16,6 @@ interface LoginFormValues {
 interface LoginModalProps {
   onClose: () => void;
 }
-
-const LoginFormSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(8, "Minimum 8 characters")
-    .required("Password is required"),
-});
 
 export default function LoginModal({ onClose }: LoginModalProps) {
   const {

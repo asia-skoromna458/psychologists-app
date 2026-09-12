@@ -51,17 +51,19 @@ export default function PsyCard({
       return;
     }
 
-    if (isFavorites) {
-      await removeFromFavorites(psychologist.id);
-      removeFavorite?.(psychologist.id);
-      setFavoriteIndexes(
-        favoriteIndexes.filter(
-          (favoriteIndexes) => favoriteIndexes !== psychologist.id,
-        ),
-      );
-    } else {
-      await addToFavorites(psychologist.id);
-      setFavoriteIndexes([...favoriteIndexes, psychologist.id]);
+    try {
+      if (isFavorites) {
+        await removeFromFavorites(psychologist.id);
+        removeFavorite?.(psychologist.id);
+        setFavoriteIndexes(
+          favoriteIndexes.filter((id) => id !== psychologist.id),
+        );
+      } else {
+        await addToFavorites(psychologist.id);
+        setFavoriteIndexes([...favoriteIndexes, psychologist.id]);
+      }
+    } catch {
+      toast.error("Something went wrong! Please try again");
     }
   };
   return (

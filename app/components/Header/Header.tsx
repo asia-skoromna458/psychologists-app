@@ -12,7 +12,6 @@ export default function Header() {
   const [modal, setModal] = useState<"login" | "registration" | null>(null);
   const pathname = usePathname();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  // const user = useAuthStore((state) => state.user);
   useEffect(() => {
     getCurrentUser();
   }, []);

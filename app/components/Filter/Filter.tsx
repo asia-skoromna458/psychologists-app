@@ -4,19 +4,21 @@ import { IoIosArrowUp } from "react-icons/io";
 
 interface FilterProps {
   filter: string;
-  setFilter: (filtr: string) => void;
+  setFilter: (filter: string) => void;
 }
+
+const filters = [
+  "A to Z",
+  "Z to A",
+  "Less than 10$",
+  "Greater than 10$",
+  "Popular",
+  "Not popular",
+  "Show all",
+];
+
 export default function Filter({ filter, setFilter }: FilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const filters = [
-    "A to Z",
-    "Z to A",
-    "Less than 10$",
-    "Greater than 10$",
-    "Popular",
-    "Not popular",
-    "Show all",
-  ];
   const handleFilter = (value: string) => {
     setFilter(value);
     setIsOpen(false);

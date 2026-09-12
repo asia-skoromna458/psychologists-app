@@ -9,6 +9,7 @@ import FilteredPsychologist from "@/lib/filters/filters";
 import AppointmentModal from "../components/Modal/AppointmentModal/AppointmentModal";
 import LoginModal from "../components/Modal/LoginModal/LoginModal";
 import Loader from "../components/Loader/Loader";
+import toast from "react-hot-toast";
 
 export default function PsychologistsPage() {
   const [psychologists, setPsychologists] = useState<Psychologist[]>([]);
@@ -21,19 +22,29 @@ export default function PsychologistsPage() {
 
   useEffect(() => {
     async function fetchPsychologists() {
-      const res = await getPsychologist(null);
-      setPsychologists(res.psychologist);
-      setLastKey(res.lastKey);
-      setIsLoading(false);
+      try {
+        const res = await getPsychologist(null);
+        setPsychologists(res.psychologist);
+        setLastKey(res.lastKey);
+      } catch {
+        toast.error("Something went wrong! Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchPsychologists();
   }, []);
   async function LoadMore() {
     setIsLoading(true);
-    const res = await getPsychologist(lastKey);
-    setPsychologists((prev) => [...prev, ...res.psychologist]);
-    setLastKey(res.lastKey);
-    setIsLoading(false);
+    try {
+      const res = await getPsychologist(lastKey);
+      setPsychologists((prev) => [...prev, ...res.psychologist]);
+      setLastKey(res.lastKey);
+    } catch {
+      toast.error("Something went wrong! Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }
   if (isLoading) {
     return <Loader />;
@@ -43,9 +54,9 @@ export default function PsychologistsPage() {
   return (
     <main className={css.container}>
       <Filter filter={filter} setFilter={setFilter} />
-      {filteredPsychologist.map((psychologist, index) => (
+      {filteredPsychologist.map((psychologist) => (
         <PsyCard
-          key={index}
+          key={psychologist.id}
           psychologist={psychologist}
           onAppointment={setSelectedPsychologist}
           openModal={setModal}

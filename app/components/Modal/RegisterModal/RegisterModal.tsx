@@ -2,11 +2,11 @@ import Modal from "../Modal";
 import css from "../Modal.module.css";
 import { HiOutlineEyeOff, HiOutlineEye } from "react-icons/hi";
 import { useState } from "react";
-import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerUser } from "@/lib/firebase/auth";
 import toast from "react-hot-toast";
+import { RegisterFormSchema } from "@/lib/validation/schemas";
 
 interface RegisterModalProps {
   onClose: () => void;
@@ -17,19 +17,6 @@ interface RegisterFormValues {
   email: string;
   password: string;
 }
-
-const RegisterFormSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Minimum 2 characters")
-    .max(32, "Max 32 characters")
-    .required("Name is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(8, "Minimum 8 characters")
-    .required("Password is required"),
-});
 
 export default function RegisterModal({ onClose }: RegisterModalProps) {
   const [showPassword, setShowPassword] = useState(false);

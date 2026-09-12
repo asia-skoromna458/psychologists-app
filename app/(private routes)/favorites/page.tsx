@@ -11,6 +11,7 @@ import Filter from "@/app/components/Filter/Filter";
 import FilteredPsychologist from "@/lib/filters/filters";
 import css from "./page.module.css";
 import Loader from "@/app/components/Loader/Loader";
+import toast from "react-hot-toast";
 
 export default function FavoritesPage() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -27,12 +28,16 @@ export default function FavoritesPage() {
       router.push("/");
     }
     async function fetchPsychologists() {
-      const res = await getFavorites();
-
-      const favoriteId = Object.keys(res ?? {});
-      const psychologistData = await getPsychologistById(favoriteId);
-      setPsychologists(psychologistData);
-      setIsLoading(false);
+      try {
+        const res = await getFavorites();
+        const favoriteId = Object.keys(res ?? {});
+        const psychologistData = await getPsychologistById(favoriteId);
+        setPsychologists(psychologistData);
+      } catch {
+        toast.error("Something went wrong! Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchPsychologists();
   }, [isAuthenticated, router, isAuthChecked]);

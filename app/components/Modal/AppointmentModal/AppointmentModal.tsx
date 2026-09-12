@@ -2,30 +2,14 @@ import { Psychologist } from "@/types/psychologist";
 import Modal from "../Modal";
 import Image from "next/image";
 import css from "./AppointmentModal.module.css";
-import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import toast from "react-hot-toast";
+import { AppointmentModalSchema } from "@/lib/validation/schemas";
 interface AppointmentModalProps {
   onClose: () => void;
   psychologist: Psychologist;
 }
 
-const AppointmentModalSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Minimum 2 characters")
-    .max(32, "Max 32 characters")
-    .required("Name is required"),
-  tel: Yup.string()
-    .matches(/^\+380\d{9}$/, "Invalid phone number")
-    .required("Phone is required"),
-  time: Yup.string().required("Time is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  comment: Yup.string()
-    .min(10, "Minimum 10 characters")
-    .required("Comment is required"),
-});
 export default function AppointmentModal({
   onClose,
   psychologist,
@@ -109,7 +93,7 @@ export default function AppointmentModal({
                 as="textarea"
                 name="comment"
                 placeholder="Comment"
-                className={css.commetnInput}
+                className={css.commentInput}
               />
               <ErrorMessage
                 className={css.error}
