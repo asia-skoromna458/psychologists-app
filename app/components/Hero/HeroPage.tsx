@@ -29,6 +29,7 @@ export default function Hero() {
             width={464}
             height={526}
             className={css.image}
+            priority
           />
           <div className={css.badge1}>?</div>
           <div className={css.badge2}>
