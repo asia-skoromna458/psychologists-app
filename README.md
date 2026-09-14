@@ -1,4 +1,4 @@
-# Psychologists App
+# MindSpace
 
 A web application that helps users find psychologists and book personal appointments with them. Built as an individual training project with a focus on Firebase integration, authentication, and pagination.
 
